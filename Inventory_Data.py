@@ -10,52 +10,30 @@ import time
 
 
 def access():
-    usrname = '6W6ZLsWAlg3AyQHh0Usghel0iADI2SVA'
-    usrpass = 'DyYmO2ax2Stb5t2N'
+    usrname = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+    usrpass = 'YYYYYYYYYYYYYYYYYYYYY'
     auth=HTTPBasicAuth(usrname,usrpass)
-    url = "https://aero.api-beta.honeywell.com/v1/oauth/accesstoken?grant_type=client_credentials"
+    url = "https://XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=client_credentials"
 
     response = requests.get(url,auth=auth)
     json_response = response.json()
-    # access_token = '2V6Y4TYkwT1g6CFyhtbyYaw5aGM7'
     access_token = json_response["access_token"]
     print(access_token)
     headers = {"content-type": "application/json; charset=UTF-8",'Authorization':'Bearer {}'.format(access_token)}
     return headers
 
 
-def blockchain(part_num, serial):   # NOT CALLED
-    blockchain_url="https://www.godirecttrade.com/honeywellaerospacetrading-pn-"+part_num+"-sn-"+serial+".html"
-    page = driver.get(blockchain_url)
-    # tree = html.fromstring(page.content)
-    driver.refresh()
-    time.sleep(5)
-    # text = driver.findElement(By.tagName("span")).getText()
-    # prices =
-    for i in range(1,3):
-        for j in range(1,5):
-            blockchain_path = '/html/body/div[2]/main/div[2]/div/div[1]/div/div/div[2]/div/div['+str(i)+']/div['+str(j)+']/div/span[@class="dot current"]'
-            blockchain_info = driver.find_elements_by_xpath('//*[@id="content"]/div[1]/div[1]/div')
-            if len(blockchain_info) == 0:
-                print("Skip")
-                continue
-            print("i",i,"j",j)
-            for each_text in blockchain_info:
-                print(each_text.text)
-
-
-
 access_headers = access()
 driver = webdriver.Chrome('./chromedriver')
-with io.open('D:\Cleveland State University\Research_Moonwong\Inventory Data\Inventory\inventory_data.csv', 'a', encoding="utf-8", newline='\n') as dataFile:
+with io.open('D:\inventory_data.csv', 'a', encoding="utf-8", newline='\n') as dataFile:
     data_file_writer = csv.writer(dataFile, delimiter=',')
     for i in range(1,57853):
         print(i)
         if i==1:
-            url = "https://www.godirecttrade.com/marketplace/seller/profile/shop/HoneywellAerospaceTrading"
+            url = "https://www.XXXTrading"
             driver.get(url)
         else:
-            next_url = "https://www.godirecttrade.com/marketplace/seller/profile/shop/HoneywellAerospaceTrading#"+str(i)
+            next_url = "https://www.XXXTrading#"+str(i)
             driver.get(next_url)
             driver.refresh()
             time.sleep(5)
@@ -68,7 +46,7 @@ with io.open('D:\Cleveland State University\Research_Moonwong\Inventory Data\Inv
             for x in video_links:
                 partnum = x.text
                 print(partnum)
-                invurl="https://aero.api-beta.honeywell.com/gdt/v1/search/inventory/part?part_number="+partnum
+                invurl="https://XXX/part?part_number="+partnum
                 response = requests.get(invurl,headers=access_headers).json()
                 try:
                     for dict_num in range(len(response)):
