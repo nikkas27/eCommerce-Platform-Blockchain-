@@ -11,14 +11,13 @@ import time
 
 
 def access():
-    usrname = '6W6ZLsWAlg3AyQHh0Usghel0iADI2SVA'
-    usrpass = 'DyYmO2ax2Stb5t2N'
+    usrname = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+    usrpass = 'YYYYYYYYYYYYYY'
     auth=HTTPBasicAuth(usrname,usrpass)
-    url = "https://aero.api-beta.honeywell.com/v1/oauth/accesstoken?grant_type=client_credentials"
+    url = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
     response = requests.get(url,auth=auth)
     json_response = response.json()
-    # access_token = '2V6Y4TYkwT1g6CFyhtbyYaw5aGM7'
     access_token = json_response["access_token"]
     print(access_token)
     headers = {"content-type": "application/json; charset=UTF-8",'Authorization':'Bearer {}'.format(access_token)}
@@ -26,17 +25,14 @@ def access():
 
 
 def blockchain(part, serial_info):
-    blockchain_url="https://www.godirecttrade.com/honeywellaerospacetrading-pn-"+part+"-sn-"+serial_info+".html"
+    blockchain_url="https://www.XXXXXXXXXXXXXXXXXXX"+part+"-sn-"+serial_info+".html"
     page = driver.get(blockchain_url)
     # tree = html.fromstring(page.content)
     driver.refresh()
     time.sleep(5)
-    # text = driver.findElement(By.tagName("span")).getText()
-    # prices =
     text_description = []
     text_description.append(part)
     text_description.append(serial_info)
-    # print(text_description)
     for i in range(1,3):
         for j in range(1,10):
             blockchain_info_other = driver.find_elements_by_xpath('//*[@id="content"]/div['+str(i)+']/div['+str(j)+']/div')
@@ -53,7 +49,7 @@ def blockchain(part, serial_info):
 
 access_headers = access()
 driver = webdriver.Chrome('./chromedriver')
-with io.open('D:\Cleveland State University\Research_Moonwong\Inventory Data\Blockchain_info.csv', 'a', encoding="utf-8", newline='\n') as dataFile:
+with io.open('D:\Blockchain_info.csv', 'a', encoding="utf-8", newline='\n') as dataFile:
     data_file_writer = csv.writer(dataFile, delimiter=',')
     with open('inventory_data.csv') as f:
         inventory_data = csv.reader(f)
